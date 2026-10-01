@@ -1,0 +1,1914 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MERN React Full Stack — Written Exam Prep Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&family=Fraunces:opsz,wght@9..144,400;9..144,700;9..144,900&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════════
+   DESIGN SYSTEM — LIGHT PREMIUM THEME
+   ═══════════════════════════════════════════════ */
+:root {
+  /* Surfaces */
+  --bg:         #fafaf9;
+  --bg-warm:    #f5f3f0;
+  --surface:    #ffffff;
+  --surface-2:  #f8f6f3;
+  --surface-3:  #f0ede8;
+
+  /* Borders */
+  --border:     #e5e2dc;
+  --border-2:   #d5d0c8;
+  --border-3:   #c5bfb5;
+
+  /* Text */
+  --text:       #1a1714;
+  --text-2:     #3d3a36;
+  --text-muted: #6b6560;
+  --text-faint: #9b9590;
+
+  /* Accent Palette — warm and cohesive */
+  --accent:     #c2410c;  /* Burnt orange */
+  --accent-bg:  #fff7ed;
+  --accent-2:   #ea580c;
+  --blue:       #1e40af;
+  --blue-bg:    #eff6ff;
+  --blue-light: #3b82f6;
+  --green:      #166534;
+  --green-bg:   #f0fdf4;
+  --purple:     #6d28d9;
+  --purple-bg:  #faf5ff;
+  --red:        #991b1b;
+  --red-bg:     #fef2f2;
+  --teal:       #115e59;
+  --teal-bg:    #f0fdfa;
+
+  /* Code */
+  --code-bg:    #f5f2ed;
+  --code-text:  #1e1e2e;
+  --kw:         #7c3aed;
+  --fn:         #1d4ed8;
+  --str:        #16a34a;
+  --cm:         #94a3b8;
+  --num:        #ea580c;
+  --tag:        #0f766e;
+
+  /* Typography */
+  --sans:       'Inter', -apple-system, sans-serif;
+  --serif:      'Fraunces', Georgia, serif;
+  --mono:       'JetBrains Mono', 'Consolas', monospace;
+
+  /* Transitions */
+  --ease:       all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ── RESET ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 15px; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--sans);
+  line-height: 1.75;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: rgba(194, 65, 12, 0.15);
+  color: var(--accent);
+}
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--border-2); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: var(--border-3); }
+
+/* ═══════════════════════════════════════════════
+   HEADER
+   ═══════════════════════════════════════════════ */
+header {
+  background: var(--text);
+  color: #f7f5f0;
+  padding: 56px 64px 44px;
+  position: relative;
+  overflow: hidden;
+}
+
+header::after {
+  content: '';
+  position: absolute;
+  top: 0; right: 0; bottom: 0;
+  width: 45%;
+  background: repeating-linear-gradient(
+    -45deg, transparent, transparent 12px,
+    rgba(255,255,255,0.025) 12px,
+    rgba(255,255,255,0.025) 13px
+  );
+  pointer-events: none;
+}
+
+.header-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #f97316;
+  background: rgba(249,115,22,0.1);
+  border: 1px solid rgba(249,115,22,0.2);
+  padding: 5px 14px;
+  border-radius: 99px;
+  margin-bottom: 18px;
+}
+
+.header-badge .dot {
+  width: 6px; height: 6px;
+  background: #f97316;
+  border-radius: 50%;
+}
+
+header h1 {
+  font-family: var(--serif);
+  font-size: clamp(30px, 4.5vw, 50px);
+  font-weight: 900;
+  line-height: 1.08;
+  margin-bottom: 14px;
+}
+
+header h1 em {
+  font-style: normal;
+  color: #f97316;
+}
+
+.subtitle {
+  font-size: 14.5px;
+  color: #a8a09a;
+  max-width: 620px;
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+.pills { display: flex; gap: 8px; flex-wrap: wrap; }
+
+.pill {
+  font-family: var(--mono);
+  font-size: 10px;
+  padding: 4px 12px;
+  border-radius: 99px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.12);
+  color: #d4cfc5;
+  letter-spacing: 0.04em;
+}
+
+/* ═══════════════════════════════════════════════
+   NAVIGATION — STICKY TAB BAR
+   ═══════════════════════════════════════════════ */
+nav {
+  background: var(--surface);
+  border-bottom: 2px solid var(--border);
+  padding: 0 64px;
+  display: flex;
+  gap: 0;
+  flex-wrap: wrap;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+}
+
+nav a {
+  font-size: 12px;
+  font-weight: 600;
+  text-decoration: none;
+  color: var(--text-muted);
+  padding: 14px 15px;
+  border-bottom: 3px solid transparent;
+  margin-bottom: -2px;
+  transition: var(--ease);
+  white-space: nowrap;
+}
+
+nav a:hover {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+}
+
+/* ═══════════════════════════════════════════════
+   MAIN LAYOUT
+   ═══════════════════════════════════════════════ */
+main {
+  padding: 48px 64px 120px;
+  max-width: 920px;
+}
+
+/* ═══════════════════════════════════════════════
+   SECTION HEADINGS
+   ═══════════════════════════════════════════════ */
+section { margin-bottom: 72px; scroll-margin-top: 60px; }
+
+.stag {
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 6px;
+}
+
+h2 {
+  font-family: var(--serif);
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 4px;
+  line-height: 1.2;
+}
+
+.sline {
+  height: 3px;
+  width: 48px;
+  background: var(--accent);
+  border-radius: 2px;
+  margin-bottom: 28px;
+}
+
+h3 {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-muted);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin: 32px 0 12px;
+}
+
+h3:first-of-type { margin-top: 0; }
+
+h4 {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text);
+  margin: 24px 0 8px;
+}
+
+p { color: var(--text-2); margin-bottom: 10px; }
+p:last-child { margin-bottom: 0; }
+strong { color: var(--text); font-weight: 600; }
+
+hr {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 28px 0;
+}
+
+/* ═══════════════════════════════════════════════
+   TYPOGRAPHY HELPERS
+   ═══════════════════════════════════════════════ */
+code {
+  font-family: var(--mono);
+  font-size: 0.85em;
+  background: var(--code-bg);
+  border: 1px solid var(--border);
+  padding: 1px 6px;
+  border-radius: 4px;
+  color: var(--accent);
+}
+
+pre {
+  background: var(--code-bg);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--accent);
+  border-radius: 0 8px 8px 0;
+  padding: 16px 20px;
+  font-family: var(--mono);
+  font-size: 12.5px;
+  line-height: 1.8;
+  color: var(--code-text);
+  overflow-x: auto;
+  margin: 10px 0 16px;
+  white-space: pre;
+}
+
+pre code {
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: inherit;
+  color: inherit;
+}
+
+pre.blue { border-left-color: var(--blue-light); }
+pre.green { border-left-color: var(--green); }
+pre.purple { border-left-color: var(--purple); }
+pre.teal { border-left-color: var(--teal); }
+
+.kw { color: var(--kw); font-weight: 500; }
+.fn { color: var(--fn); }
+.str { color: var(--str); }
+.cm { color: var(--cm); font-style: italic; }
+.num { color: var(--num); }
+.tag { color: var(--tag); }
+
+/* ═══════════════════════════════════════════════
+   CALLOUT BOXES
+   ═══════════════════════════════════════════════ */
+.box {
+  padding: 16px 20px;
+  border-radius: 0 8px 8px 0;
+  margin: 14px 0;
+  font-size: 13.5px;
+  line-height: 1.7;
+}
+
+.box.tip   { background: var(--green-bg);  border-left: 4px solid var(--green);  color: #14532d; }
+.box.warn  { background: var(--accent-bg); border-left: 4px solid var(--accent); color: #7c2d12; }
+.box.key   { background: var(--blue-bg);   border-left: 4px solid var(--blue);   color: #1e3a8a; }
+.box.def   { background: var(--purple-bg); border-left: 4px solid var(--purple); color: #4c1d95; }
+.box.exam  { background: var(--red-bg);    border-left: 4px solid var(--red);    color: var(--red); }
+.box strong { color: inherit; }
+
+/* ═══════════════════════════════════════════════
+   CARDS & GRIDS
+   ═══════════════════════════════════════════════ */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 14px;
+  margin: 14px 0;
+}
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 20px;
+  transition: var(--ease);
+}
+
+.card:hover {
+  border-color: var(--border-2);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+}
+
+.card-t {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+
+.card p { font-size: 13px; color: var(--text-muted); margin: 0; }
+
+/* ═══════════════════════════════════════════════
+   DEFINITION BOXES
+   ═══════════════════════════════════════════════ */
+.defbox {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 18px 22px;
+  margin: 12px 0;
+}
+
+.defbox .dt {
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--blue);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 6px;
+}
+
+.defbox p { margin: 0; font-size: 14px; }
+
+/* ═══════════════════════════════════════════════
+   FLOW DIAGRAMS
+   ═══════════════════════════════════════════════ */
+.flow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin: 14px 0;
+}
+
+.flow-box {
+  font-family: var(--mono);
+  font-size: 12px;
+  padding: 8px 14px;
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  border-radius: 6px;
+  color: var(--text);
+  font-weight: 500;
+}
+
+.flow-arr { color: var(--accent); font-size: 18px; font-weight: bold; }
+
+/* ═══════════════════════════════════════════════
+   TABLES
+   ═══════════════════════════════════════════════ */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 14px 0;
+  font-size: 13px;
+}
+
+th {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  text-align: left;
+  padding: 10px 14px;
+  border-bottom: 2px solid var(--border);
+  background: var(--surface-2);
+}
+
+td {
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--border);
+  color: var(--text-2);
+  vertical-align: top;
+}
+
+tr:last-child td { border-bottom: none; }
+td:first-child { font-family: var(--mono); font-size: 11.5px; color: var(--blue); white-space: nowrap; }
+tbody tr:nth-child(even) { background: var(--surface-2); }
+
+/* ═══════════════════════════════════════════════
+   SYNTAX EXPLAIN BLOCKS
+   ═══════════════════════════════════════════════ */
+.synbox {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+  margin: 14px 0;
+}
+
+.synbox pre {
+  margin: 0;
+  border-radius: 0;
+  border: none;
+  border-left: 4px solid var(--purple);
+}
+
+.synbox .notes {
+  padding: 12px 18px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  background: var(--surface-2);
+}
+
+.synbox .note {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  min-width: 200px;
+  flex: 1;
+}
+
+.synbox .note .ndot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--purple);
+  margin-top: 7px;
+  flex-shrink: 0;
+}
+
+.synbox .note p { font-size: 12.5px; margin: 0; color: var(--text-muted); }
+.synbox .note strong { color: var(--purple); }
+
+/* ═══════════════════════════════════════════════
+   FILE PATH LABELS
+   ═══════════════════════════════════════════════ */
+.fp {
+  font-family: var(--mono);
+  font-size: 11px;
+  background: var(--text);
+  color: #f97316;
+  padding: 4px 12px;
+  border-radius: 4px 4px 0 0;
+  display: inline-block;
+  margin-bottom: -1px;
+  letter-spacing: 0.03em;
+}
+
+.fp + pre {
+  border-radius: 0 8px 8px 8px;
+  margin-top: 0;
+}
+
+/* ═══════════════════════════════════════════════
+   NUMBERED STEP LISTS
+   ═══════════════════════════════════════════════ */
+.steps {
+  counter-reset: step;
+  list-style: none;
+  padding: 0;
+  margin: 14px 0;
+}
+
+.steps li {
+  counter-increment: step;
+  position: relative;
+  padding-left: 40px;
+  margin-bottom: 14px;
+  font-size: 14px;
+  color: var(--text-2);
+  line-height: 1.7;
+}
+
+.steps li::before {
+  content: counter(step);
+  position: absolute;
+  left: 0;
+  top: 2px;
+  width: 26px;
+  height: 26px;
+  background: var(--accent-bg);
+  border: 1.5px solid rgba(194,65,12,0.2);
+  border-radius: 50%;
+  color: var(--accent);
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ═══════════════════════════════════════════════
+   QUIZ SYSTEM
+   ═══════════════════════════════════════════════ */
+.quiz-wrap {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 28px;
+  margin: 20px 0;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+}
+
+.quiz-bar {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+}
+
+.quiz-track {
+  height: 5px;
+  background: var(--surface-3);
+  border-radius: 10px;
+  margin-bottom: 28px;
+  overflow: hidden;
+}
+
+.quiz-fill {
+  height: 100%;
+  background: var(--accent);
+  width: 5%;
+  transition: width 0.3s ease;
+  border-radius: 10px;
+}
+
+.quiz-q {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 20px;
+  line-height: 1.5;
+}
+
+.quiz-opts {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.qbtn {
+  background: var(--surface-2);
+  border: 1.5px solid var(--border);
+  color: var(--text-2);
+  padding: 14px 18px;
+  border-radius: 8px;
+  text-align: left;
+  cursor: pointer;
+  font-size: 14px;
+  font-family: var(--sans);
+  transition: var(--ease);
+}
+
+.qbtn:hover {
+  border-color: var(--accent);
+  background: var(--accent-bg);
+  color: var(--text);
+}
+
+.qbtn.ok {
+  background: var(--green-bg);
+  border-color: var(--green);
+  color: var(--green);
+  font-weight: 600;
+}
+
+.qbtn.no {
+  background: var(--red-bg);
+  border-color: var(--red);
+  color: var(--red);
+}
+
+.quiz-exp {
+  margin-top: 20px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 16px 20px;
+  display: none;
+}
+
+.quiz-exp h4 { font-size: 14px; margin-bottom: 4px; }
+.quiz-exp p { font-size: 13.5px; color: var(--text-muted); margin: 0; }
+
+.qnext {
+  margin-top: 20px;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  padding: 10px 24px;
+  border-radius: 6px;
+  font-weight: 700;
+  cursor: pointer;
+  font-size: 13.5px;
+  float: right;
+  display: none;
+  transition: var(--ease);
+}
+
+.qnext:hover { background: var(--accent-2); }
+
+.quiz-done {
+  text-align: center;
+  display: none;
+}
+
+.quiz-done .score {
+  font-size: 52px;
+  font-weight: 900;
+  color: var(--accent);
+}
+
+.quiz-done .grade {
+  font-family: var(--serif);
+  font-size: 22px;
+  color: var(--text);
+  margin: 8px 0;
+}
+
+.quiz-done p {
+  max-width: 500px;
+  margin: 0 auto 20px;
+  color: var(--text-muted);
+}
+
+.quiz-done button {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 10px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: var(--ease);
+}
+
+.quiz-done button:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* ═══════════════════════════════════════════════
+   PRINT & RESPONSIVE
+   ═══════════════════════════════════════════════ */
+@media print {
+  nav { position: static; }
+  pre, .card, .defbox, .box { page-break-inside: avoid; }
+}
+
+@media (max-width: 700px) {
+  header, main { padding-left: 20px; padding-right: 20px; }
+  nav { padding-left: 16px; }
+  nav a { padding: 12px 10px; font-size: 11px; }
+  .grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════
+     HEADER
+     ═══════════════════════════════════════════════ -->
+<header>
+  <div class="header-badge"><div class="dot"></div> Written Exam Preparation · Dr. Tarek BCHINI</div>
+  <h1>MERN React Full Stack<br><em>Exam Prep Guide</em></h1>
+  <p class="subtitle">A comprehensive, logic-focused study companion covering everything from installation to MongoDB. Designed for a written test — you need to understand <em>why</em> things work, not memorize syntax character by character.</p>
+  <div class="pills">
+    <span class="pill">React</span>
+    <span class="pill">Node.js</span>
+    <span class="pill">Express</span>
+    <span class="pill">MongoDB</span>
+    <span class="pill">Mongoose</span>
+    <span class="pill">Axios</span>
+    <span class="pill">React Router</span>
+    <span class="pill">Git / GitHub</span>
+  </div>
+</header>
+
+<!-- ═══════════════════════════════════════════════
+     NAVIGATION
+     ═══════════════════════════════════════════════ -->
+<nav>
+  <a href="#bigpicture">Big Picture</a>
+  <a href="#install">Installation</a>
+  <a href="#terminal">Terminal & npm</a>
+  <a href="#git">Git & GitHub</a>
+  <a href="#react-basics">React Basics</a>
+  <a href="#structure">File Structure</a>
+  <a href="#components">Components</a>
+  <a href="#hooks">Hooks</a>
+  <a href="#router">React Router</a>
+  <a href="#backend">Backend</a>
+  <a href="#fullstack">Full Stack Flow</a>
+  <a href="#mongodb">MongoDB</a>
+  <a href="#models">Models & Seeder</a>
+  <a href="#logic">Logic Q&A</a>
+  <a href="#quiz">Practice Quiz</a>
+</nav>
+
+<main>
+
+<!-- ════════════════════════════════════════════════════════════════════════ -->
+<!--  SECTION 1 — THE BIG PICTURE                                          -->
+<!-- ════════════════════════════════════════════════════════════════════════ -->
+<section id="bigpicture">
+  <div class="stag">Chapter 1</div>
+  <h2>The Big Picture — What Are We Building?</h2>
+  <div class="sline"></div>
+
+  <p>In this course we build a <strong>full-stack e-commerce website</strong> called <em>Licorne</em>. "Full-stack" means we build <em>everything</em>: the visual interface the user sees (Frontend), the server that processes requests (Backend), and the database that stores data permanently (Database).</p>
+
+  <h3>The Three Layers</h3>
+  <div class="grid">
+    <div class="card">
+      <div class="card-t">🖥️ Frontend (Client)</div>
+      <p>What the user sees and interacts with inside their browser. Built with <strong>React</strong>. Runs on the user's computer. Sends requests to the backend when it needs data.</p>
+    </div>
+    <div class="card">
+      <div class="card-t">⚙️ Backend (Server)</div>
+      <p>A program running on a remote computer that receives requests, processes them (business logic), talks to the database, and sends responses back. Built with <strong>Node.js + Express</strong>.</p>
+    </div>
+    <div class="card">
+      <div class="card-t">🗄️ Database</div>
+      <p>Permanent data storage. Like a giant organized filing cabinet. We use <strong>MongoDB</strong> — a NoSQL database that stores data as JSON-like documents instead of tables.</p>
+    </div>
+  </div>
+
+  <h3>What is "MERN"?</h3>
+  <p>MERN is an acronym for the four core technologies used together:</p>
+  <table>
+    <tr><th>Letter</th><th>Technology</th><th>Role</th></tr>
+    <tr><td>M</td><td><strong>MongoDB</strong></td><td>Database — stores products, users, orders</td></tr>
+    <tr><td>E</td><td><strong>Express</strong></td><td>Backend framework — creates the API server</td></tr>
+    <tr><td>R</td><td><strong>React</strong></td><td>Frontend library — builds the user interface</td></tr>
+    <tr><td>N</td><td><strong>Node.js</strong></td><td>Runtime — lets JavaScript run outside the browser</td></tr>
+  </table>
+
+  <div class="box key"><strong>🧠 Exam Logic:</strong> If asked "What is the MERN stack?", answer: it's a combination of four technologies (MongoDB, Express, React, Node.js) that together allow building a complete web application using only JavaScript across all layers.</div>
+
+  <h3>How the Three Layers Communicate</h3>
+  <div class="flow">
+    <div class="flow-box">User clicks button</div>
+    <div class="flow-arr">→</div>
+    <div class="flow-box">React sends HTTP request</div>
+    <div class="flow-arr">→</div>
+    <div class="flow-box">Express receives & processes</div>
+    <div class="flow-arr">→</div>
+    <div class="flow-box">Mongoose queries MongoDB</div>
+  </div>
+  <div class="flow">
+    <div class="flow-box">MongoDB returns data</div>
+    <div class="flow-arr">→</div>
+    <div class="flow-box">Express sends JSON response</div>
+    <div class="flow-arr">→</div>
+    <div class="flow-box">React updates the screen</div>
+  </div>
+
+  <h3>Key Vocabulary</h3>
+
+  <div class="defbox">
+    <div class="dt">API (Application Programming Interface)</div>
+    <p>A set of URLs (called <strong>endpoints</strong>) that the backend exposes so the frontend can ask for data. Example: <code>GET /api/products</code> returns all products as JSON. The frontend never talks to the database directly — it always goes through the API.</p>
+  </div>
+
+  <div class="defbox">
+    <div class="dt">JSON (JavaScript Object Notation)</div>
+    <p>A lightweight text format for representing structured data. It looks like a JavaScript object: <code>{ "name": "Phone", "price": 599 }</code>. This is the language the frontend and backend speak when exchanging data.</p>
+  </div>
+
+  <div class="defbox">
+    <div class="dt">HTTP Methods</div>
+    <p><strong>GET</strong> = retrieve data. <strong>POST</strong> = send/create data. <strong>PUT</strong> = update data. <strong>DELETE</strong> = remove data. In our project we mainly use GET (fetching products).</p>
+  </div>
+
+  <div class="defbox">
+    <div class="dt">Port</div>
+    <p>A number that identifies which program should receive network traffic on a computer. Our frontend runs on port <strong>3000</strong> and our backend on port <strong>5000</strong>. Think of it like apartment numbers in a building — same building (computer), different doors.</p>
+  </div>
+
+  <div class="defbox">
+    <div class="dt">SPA — Single Page Application</div>
+    <p>A website that loads <em>one single HTML page</em> and then dynamically updates content using JavaScript, without ever reloading the entire page. React builds SPAs. The browser doesn't request new HTML pages from the server — React replaces parts of the page internally.</p>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════════════════ -->
+<!--  SECTION 2 — INSTALLATION                                              -->
+<!-- ════════════════════════════════════════════════════════════════════════ -->
+<section id="install">
+  <div class="stag">Chapter 2</div>
+  <h2>Installation — What to Install and Why</h2>
+  <div class="sline"></div>
+
+  <p>Before writing any code, you need to install several tools. Here is each tool and <em>why</em> it's needed:</p>
+
+  <table>
+    <tr><th>Tool</th><th>What It Is</th><th>Why You Need It</th></tr>
+    <tr><td>Node.js</td><td>JavaScript runtime</td><td>Lets JS run outside the browser. Also installs <strong>npm</strong> automatically.</td></tr>
+    <tr><td>VS Code</td><td>Code editor</td><td>Where you write and edit all your code files.</td></tr>
+    <tr><td>Git Bash</td><td>Terminal emulator</td><td>Run Linux/git commands on Windows. Used for version control.</td></tr>
+    <tr><td>Google Chrome</td><td>Browser</td><td>Run and inspect your frontend. Has React DevTools extension.</td></tr>
+    <tr><td>MongoDB Compass</td><td>Database GUI</td><td>Visual tool to browse, query, and manage your MongoDB databases.</td></tr>
+  </table>
+
+  <h3>VS Code Extensions</h3>
+  <table>
+    <tr><th>Extension</th><th>Purpose</th></tr>
+    <tr><td>ES7 React/Redux</td><td>Type <code>rfce</code> + Enter → auto-generates a complete React function component</td></tr>
+    <tr><td>JS (ES6) snippets</td><td>Auto-completes common JavaScript patterns</td></tr>
+    <tr><td>Prettier</td><td>Automatically formats your code nicely when you save</td></tr>
+    <tr><td>Auto Rename Tag</td><td>When you rename an opening HTML/JSX tag, the closing tag updates too</td></tr>
+  </table>
+
+  <h3>Chrome Extensions</h3>
+  <table>
+    <tr><th>Extension</th><th>Purpose</th></tr>
+    <tr><td>React Developer Tools</td><td>Inspect React component tree, props, and state in Chrome DevTools</td></tr>
+    <tr><td>Redux DevTools</td><td>Monitor Redux state changes (used in later parts of the course)</td></tr>
+  </table>
+
+  <div class="box exam"><strong>📝 Exam Tip:</strong> You may be asked to list the tools needed for a MERN project. Remember: Node.js, VS Code, Git Bash, Chrome, MongoDB Compass. Know <em>why</em> each one is needed.</div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════════════════ -->
+<!--  SECTION 3 — TERMINAL & NPM COMMANDS                                   -->
+<!-- ════════════════════════════════════════════════════════════════════════ -->
+<section id="terminal">
+  <div class="stag">Chapter 3</div>
+  <h2>Terminal Commands, npm, and npx</h2>
+  <div class="sline"></div>
+
+  <h3>What is the Terminal?</h3>
+  <p>The terminal is a text-based interface where you type commands to control your computer — create files, install packages, run servers, etc. In VS Code, you open it with <code>Ctrl + `</code> (backtick).</p>
+
+  <h3>What is npm?</h3>
+  <p><strong>npm</strong> (Node Package Manager) is a tool that comes bundled with Node.js. It lets you:</p>
+  <ul style="margin-left:20px;margin-bottom:14px;color:var(--text-2)">
+    <li>Download and install <strong>packages</strong> (pre-made code libraries written by other developers)</li>
+    <li>Manage your project's <strong>dependencies</strong> (the list of packages your project needs)</li>
+    <li>Run custom <strong>scripts</strong> defined in package.json</li>
+  </ul>
+
+  <h3>npm vs npx — The Difference</h3>
+  <div class="grid">
+    <div class="card">
+      <div class="card-t" style="color:var(--blue)">npm install (or npm i)</div>
+      <p>Downloads a package and <strong>saves it permanently</strong> in your project's <code>node_modules</code> folder. The package name gets recorded in <code>package.json</code> so anyone can reinstall it later.</p>
+    </div>
+    <div class="card">
+      <div class="card-t" style="color:var(--purple)">npx</div>
+      <p>Downloads and <strong>runs a package once</strong> without permanently installing it. Perfect for setup tools you only need once, like <code>create-react-app</code>.</p>
+    </div>
+  </div>
+
+  <h3>Essential npm Commands</h3>
+  <table>
+    <tr><th>Command</th><th>What It Does</th><th>When You Use It</th></tr>
+    <tr><td>npm init</td><td>Creates a <code>package.json</code> file with project info</td><td>Once, when starting a new Node.js project</td></tr>
+    <tr><td>npm i &lt;package&gt;</td><td>Installs a package as a dependency</td><td><code>npm i express</code> installs Express</td></tr>
+    <tr><td>npm i -D &lt;pkg&gt;</td><td>Installs as a <strong>dev dependency</strong> (only needed during development, not in production)</td><td><code>npm i -D nodemon</code></td></tr>
+    <tr><td>npm start</td><td>Runs the "start" script from package.json</td><td>Launch the server or app</td></tr>
+    <tr><td>npm run &lt;name&gt;</td><td>Runs any custom script by name</td><td><code>npm run dev</code>, <code>npm run server</code></td></tr>
+    <tr><td>npx create-react-app frontend</td><td>Creates a complete React project scaffold in a folder called "frontend"</td><td>Once, at the beginning of a React project</td></tr>
+  </table>
+
+  <h3>The package.json File</h3>
+  <p>Every Node.js project has a <code>package.json</code>. It's a JSON file that stores:</p>
+  <ul style="margin-left:20px;margin-bottom:14px;color:var(--text-2)">
+    <li><strong>Project metadata</strong> — name, version, description</li>
+    <li><strong>Scripts</strong> — custom commands you can run with <code>npm run</code></li>
+    <li><strong>Dependencies</strong> — packages your project needs to run</li>
+    <li><strong>Dev Dependencies</strong> — packages only needed during development</li>
+  </ul>
+
+  <div class="synbox">
+<pre class="purple"><span class="cm">// Example package.json (root of our project)</span>
+{
+  <span class="str">"name"</span>: <span class="str">"example"</span>,
+  <span class="str">"type"</span>: <span class="str">"module"</span>,            <span class="cm">// ← enables import/export syntax (ES modules)</span>
+  <span class="str">"scripts"</span>: {
+    <span class="str">"start"</span>:        <span class="str">"node backend/server.js"</span>,       <span class="cm">// npm start → launches backend</span>
+    <span class="str">"server"</span>:       <span class="str">"nodemon backend/server.js"</span>,    <span class="cm">// npm run server → auto-restarts on changes</span>
+    <span class="str">"client"</span>:       <span class="str">"npm start --prefix frontend"</span>,  <span class="cm">// npm run client → starts React</span>
+    <span class="str">"dev"</span>:          <span class="str">"concurrently \"npm run server\" \"npm run client\""</span>, <span class="cm">// runs BOTH!</span>
+    <span class="str">"data:import"</span>:  <span class="str">"node backend/seeder.js"</span>,       <span class="cm">// seeds the database</span>
+    <span class="str">"data:destroy"</span>: <span class="str">"node backend/seeder.js -d"</span>     <span class="cm">// clears the database</span>
+  },
+  <span class="str">"dependencies"</span>: { <span class="str">"express"</span>: <span class="str">"^5.2.1"</span>, <span class="str">"mongoose"</span>: <span class="str">"^9.4.1"</span>, ... },
+  <span class="str">"devDependencies"</span>: { <span class="str">"nodemon"</span>: <span class="str">"^3.1.14"</span>, <span class="str">"concurrently"</span>: <span class="str">"^9.2.1"</span>, ... }
+}</pre>
+    <div class="notes">
+      <div class="note"><div class="ndot"></div><p><strong>"type": "module"</strong> — this line is critical. Without it, Node.js uses the old <code>require()</code> syntax. With it, we can use modern <code>import/export</code>.</p></div>
+      <div class="note"><div class="ndot"></div><p><strong>concurrently</strong> lets you run multiple commands simultaneously. The <code>dev</code> script runs both backend AND frontend servers with one command.</p></div>
+    </div>
+  </div>
+
+  <div class="box key"><strong>🧠 Exam Logic:</strong> Know the difference between <code>dependencies</code> and <code>devDependencies</code>. Dependencies are needed for the app to run (express, mongoose). Dev dependencies are only needed during development (nodemon, concurrently) — they're not shipped to production.</div>
+
+  <h3>nodemon — Why We Use It</h3>
+  <p>Normally, when you change a file in your backend, you have to <strong>stop the server and restart it</strong> to see changes. <code>nodemon</code> watches your files and <strong>automatically restarts the server</strong> whenever you save a change. That's why we use <code>npm run server</code> (which uses nodemon) during development instead of <code>npm start</code> (which uses plain node).</p>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════════════════ -->
+<!--  SECTION 4 — GIT & GITHUB                                              -->
+<!-- ════════════════════════════════════════════════════════════════════════ -->
+<section id="git">
+  <div class="stag">Chapter 4</div>
+  <h2>Git & GitHub</h2>
+  <div class="sline"></div>
+
+  <h3>What is Git?</h3>
+  <p><strong>Git</strong> is a <em>version control system</em>. It tracks every change you make to your code, lets you go back to previous versions, and allows multiple people to work on the same project without conflicts. It runs locally on your computer.</p>
+
+  <h3>What is GitHub?</h3>
+  <p><strong>GitHub</strong> is a website that hosts Git repositories online. Think of Git as the tracking tool on your computer, and GitHub as the cloud backup where everyone can access the project.</p>
+
+  <h3>Essential Git Commands</h3>
+  <table>
+    <tr><th>Command</th><th>What It Does</th></tr>
+    <tr><td>git init</td><td>Initializes a new Git repository in the current folder. Creates a hidden <code>.git</code> folder.</td></tr>
+    <tr><td>git config --global user.name "name"</td><td>Sets your name for all Git commits (one-time setup).</td></tr>
+    <tr><td>git config --global user.email "email"</td><td>Sets your email for all Git commits (one-time setup).</td></tr>
+    <tr><td>git add .</td><td>Stages <strong>all</strong> changed files, preparing them for commit. The <code>.</code> means "everything".</td></tr>
+    <tr><td>git commit -m "message"</td><td>Saves a snapshot of all staged changes with a descriptive message.</td></tr>
+    <tr><td>git remote add origin &lt;url&gt;</td><td>Links your local repo to a remote GitHub repository.</td></tr>
+    <tr><td>git branch -M main</td><td>Renames the default branch to "main".</td></tr>
+    <tr><td>git push -u origin main</td><td>Uploads your commits to GitHub for the first time.</td></tr>
+  </table>
+
+  <h3>The .gitignore File</h3>
+  <p>A file that tells Git which files/folders to <strong>ignore</strong> (never track). In our project it includes:</p>
+<pre>node_modules     <span class="cm"># Never upload installed packages — too large, anyone can reinstall with npm i</span>
+.env             <span class="cm"># Never upload secret credentials (DB passwords, API keys)</span></pre>
+
+  <div class="box key"><strong>🧠 Exam Logic:</strong> Know the Git workflow: <code>git init</code> → <code>git add .</code> → <code>git commit -m "msg"</code> → <code>git push</code>. Know what <code>.gitignore</code> is for (hiding node_modules and .env).</div>
+
+  <h3>Our Project's Git Setup Steps</h3>
+  <ol class="steps">
+    <li>Delete the <code>.git</code> folder inside <code>frontend/</code> (because create-react-app creates its own, but we want Git at the root level)</li>
+    <li>Move <code>.gitignore</code> from frontend to the project root</li>
+    <li>Run <code>git init</code> at the project root</li>
+    <li>Create a new repository on GitHub</li>
+    <li>Run the three commands GitHub provides: <code>git remote add origin ...</code>, <code>git branch -M main</code>, <code>git push -u origin main</code></li>
+    <li>After that, use VS Code's Source Control panel to commit and push changes</li>
+  </ol>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════════════════ -->
+<!--  SECTION 5 — REACT BASICS                                              -->
+<!-- ════════════════════════════════════════════════════════════════════════ -->
+<section id="react-basics">
+  <div class="stag">Chapter 5</div>
+  <h2>React — Core Concepts</h2>
+  <div class="sline"></div>
+
+  <h3>What is React?</h3>
+  <p>React is a JavaScript <strong>library</strong> created by Facebook (Meta) for building user interfaces. Instead of the browser reloading the entire page when something changes, React only updates the parts that actually changed.</p>
+
+  <h3>How to Create a New React Project</h3>
+<pre>npx create-react-app frontend     <span class="cm"># Creates a React project in a folder called "frontend"</span>
+cd frontend                        <span class="cm"># Move into that folder</span>
+npm start                          <span class="cm"># Start the development server at localhost:3000</span></pre>
+
+  <p>This generates all the starter files you need. After running <code>npm start</code>, your browser opens automatically to <code>http://localhost:3000</code>.</p>
+
+  <h3>What is the Virtual DOM?</h3>
+  <p>The browser has a <strong>DOM</strong> (Document Object Model) — a tree structure representing every element on the page. Changing the real DOM directly is slow. React maintains a lightweight copy called the <strong>Virtual DOM</strong>. When data changes:</p>
+
+  <div class="flow">
+    <div class="flow-box">State changes</div>
+    <div class="flow-arr">→</div>
+    <div class="flow-box">React builds new Virtual DOM</div>
+    <div class="flow-arr">→</div>
+    <div class="flow-box">Compares with old (diffing)</div>
+    <div class="flow-arr">→</div>
+    <div class="flow-box">Updates only changed parts</div>
+  </div>
+
+  <div class="box key"><strong>🧠 Exam Logic:</strong> The Virtual DOM is React's performance optimization. It doesn't re-render the entire page — it calculates the minimal set of changes and applies only those to the real browser DOM.</div>
+
+  <h3>What is JSX?</h3>
+  <p>JSX = <strong>JavaScript + XML</strong>. It's a syntax extension that lets you write HTML-like code directly inside JavaScript. It is <em>not</em> actual HTML — it gets compiled into JavaScript function calls.</p>
+
+  <div class="synbox">
+<pre class="purple"><span class="cm">// JSX — what you write:</span>
+<span class="kw">const</span> element = <span class="tag">&lt;h1&gt;</span>Hello, {name}<span class="tag">&lt;/h1&gt;</span>
+
+<span class="cm">// What React transforms it into (you never write this):</span>
+<span class="kw">const</span> element = React.<span class="fn">createElement</span>(<span class="str">'h1'</span>, <span class="kw">null</span>, <span class="str">'Hello, '</span>, name)</pre>
+    <div class="notes">
+      <div class="note"><div class="ndot"></div><p>JSX uses <strong>className</strong> instead of <code>class</code> (because "class" is a reserved word in JS).</p></div>
+      <div class="note"><div class="ndot"></div><p>Self-closing tags must end with <code>/&gt;</code>: <code>&lt;img src={logo} /&gt;</code></p></div>
+      <div class="note"><div class="ndot"></div><p>Use <strong>curly braces { }</strong> to embed any JavaScript expression inside JSX.</p></div>
+    </div>
+  </div>
+
+  <h3>What is a Component?</h3>
+  <p>A component is a <strong>JavaScript function that returns JSX</strong>. It represents a reusable piece of the user interface — a button, a card, a whole page, or even the entire app.</p>
+
+  <div class="box warn"><strong>Rules:</strong><br>
+    1. Component names <strong>must start with a capital letter</strong> — React uses this to distinguish components (<code>&lt;Header /&gt;</code>) from HTML tags (<code>&lt;div&gt;</code>).<br>
+    2. A component must return a <strong>single root element</strong>. To return multiple siblings, wrap them in a Fragment: <code>&lt;&gt;...&lt;/&gt;</code>.</p>
+  </div>
+
+  <h3>Props vs State — The Two Types of Data</h3>
+  <div class="grid">
+    <div class="card">
+      <div class="card-t" style="color:var(--purple)">Props (Properties)</div>
+      <p>Data passed <strong>from parent to child</strong>. Like function arguments. The child <strong>cannot modify</strong> them. Data flows <strong>one-way: downward only</strong> (parent → child).</p>
+    </div>
+    <div class="card">
+      <div class="card-t" style="color:var(--blue)">State</div>
+      <p>Data that lives <strong>inside</strong> a component and <strong>can change</strong>. When state changes, React automatically <strong>re-renders</strong> the component. Managed with the <code>useState</code> hook.</p>
+    </div>
+  </div>
+
+  <div class="box exam"><strong>📝 Exam Tip:</strong> A common exam question: "What is the difference between props and state?"<br>
+    <strong>Props</strong> = external, read-only, passed by parent. <strong>State</strong> = internal, mutable, managed by the component itself. Both can trigger re-renders, but only state can be modified by the component that owns it.</div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════════════════ -->
+<!--  SECTION 6 — FILE STRUCTURE                                             -->
+<!-- ════════════════════════════════════════════════════════════════════════ -->
+<section id="structure">
+  <div class="stag">Chapter 6</div>
+  <h2>React File Structure — How the App Loads</h2>
+  <div class="sline"></div>
+
+  <h3>The Loading Chain</h3>
+  <p>When a React app starts, files load in this exact order:</p>
+
+  <div class="flow">
+    <div class="flow-box">public/index.html</div>
+    <div class="flow-arr">→</div>
+    <div class="flow-box">src/index.js</div>
+    <div class="flow-arr">→</div>
+    <div class="flow-box">src/App.js</div>
+    <div class="flow-arr">→</div>
+    <div class="flow-box">Components & Screens</div>
+  </div>
+
+  <div class="defbox">
+    <div class="dt">public/index.html</div>
+    <p>The <strong>only HTML file</strong> in the entire React project. Contains a single <code>&lt;div id="root"&gt;&lt;/div&gt;</code>. React takes over this div and fills it with content dynamically through JavaScript. You almost never edit this file.</p>
+  </div>
+
+  <div class="defbox">
+    <div class="dt">src/index.js</div>
+    <p>The <strong>entry point</strong> for React. It finds the <code>&lt;div id="root"&gt;</code> in index.html and mounts the <code>&lt;App /&gt;</code> component inside it. This is also where we import CSS files and set up the Router.</p>
+  </div>
+
+  <div class="defbox">
+    <div class="dt">src/App.js</div>
+    <p>The <strong>root component</strong>. It defines the overall layout: Header (always visible), dynamic content area (changes based on URL), and Footer (always visible). Uses <code>&lt;Outlet /&gt;</code> as a placeholder for routed screens.</p>
+  </div>
+
+  <h3>Full Folder Structure</h3>
+<pre class="blue">root/
+├── backend/
+│   ├── config/
+│   │   └── db.js              <span class="cm"># MongoDB connection function</span>
+│   ├── data/
+│   │   ├── products.js        <span class="cm"># Mock product data for seeding</span>
+│   │   └── users.js           <span class="cm"># Mock user data for seeding</span>
+│   ├── models/
+│   │   ├── productModel.js    <span class="cm"># Mongoose schema for products</span>
+│   │   ├── userModel.js       <span class="cm"># Mongoose schema for users</span>
+│   │   └── orderModel.js      <span class="cm"># Mongoose schema for orders</span>
+│   ├── server.js              <span class="cm"># Express server entry point</span>
+│   └── seeder.js              <span class="cm"># Script to populate/clear database</span>
+├── frontend/
+│   ├── public/
+│   │   └── index.html         <span class="cm"># Single HTML file with &lt;div id="root"&gt;</span>
+│   ├── src/
+│   │   ├── assets/            <span class="cm"># Images (logo.png) and CSS files</span>
+│   │   ├── components/        <span class="cm"># Reusable UI pieces</span>
+│   │   │   ├── Header.js      <span class="cm"># Navigation bar</span>
+│   │   │   ├── Footer.js      <span class="cm"># Footer</span>
+│   │   │   ├── Product.js     <span class="cm"># Product card</span>
+│   │   │   └── Rating.js      <span class="cm"># Star rating display</span>
+│   │   ├── screens/           <span class="cm"># Full page views</span>
+│   │   │   ├── HomeScreen.js  <span class="cm"># All products page (route: /)</span>
+│   │   │   └── ProductScreen.js <span class="cm"># Single product detail (route: /product/:id)</span>
+│   │   ├── App.js             <span class="cm"># Root layout with Outlet</span>
+│   │   └── index.js           <span class="cm"># Entry point, sets up Router</span>
+│   └── package.json           <span class="cm"># Frontend dependencies + proxy setting</span>
+├── .env                       <span class="cm"># Secret variables (PORT, MONGO_URI)</span>
+├── .gitignore                 <span class="cm"># Files Git should ignore</span>
+└── package.json               <span class="cm"># Root scripts + backend dependencies</span></pre>
+
+  <h3>The Component Tree</h3>
+  <p>Components are organized in a parent-child tree. App.js sits at the top:</p>
+<pre class="teal">App.js                         <span class="cm"># Root — wraps everything</span>
+ ├── Header.js                 <span class="cm"># Always visible — nav bar</span>
+ ├── &lt;Outlet /&gt;                <span class="cm"># Dynamic area — changes based on URL</span>
+ │   ├── HomeScreen.js         <span class="cm"># When URL is /</span>
+ │   │   └── Product.js (×N)   <span class="cm"># One card per product</span>
+ │   │       └── Rating.js     <span class="cm"># Star display inside each card</span>
+ │   └── ProductScreen.js      <span class="cm"># When URL is /product/:id</span>
+ │       └── Rating.js
+ └── Footer.js                 <span class="cm"># Always visible — footer</span></pre>
+
+  <div class="box exam"><strong>📝 Exam Tip:</strong> You may be asked about the React loading chain or the component hierarchy. Know that <code>index.html</code> → <code>index.js</code> → <code>App.js</code>. Know that <code>&lt;Outlet /&gt;</code> is where dynamic screen components are rendered based on the URL.</div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════════════════ -->
+<!--  SECTION 7 — COMPONENTS IN DETAIL                                       -->
+<!-- ════════════════════════════════════════════════════════════════════════ -->
+<section id="components">
+  <div class="stag">Chapter 7</div>
+  <h2>Components — How They Work</h2>
+  <div class="sline"></div>
+
+  <h3>Creating a Component — the Pattern</h3>
+  <p>Every React component follows the same structure:</p>
+
+  <div class="synbox">
+<pre class="purple"><span class="cm">// 1. IMPORTS — bring in what you need</span>
+<span class="kw">import</span> { Card } <span class="kw">from</span> <span class="str">'react-bootstrap'</span>
+
+<span class="cm">// 2. COMPONENT FUNCTION — receives props, returns JSX</span>
+<span class="kw">const</span> <span class="fn">Product</span> = ({ product }) => {    <span class="cm">// destructures the 'product' prop</span>
+  <span class="kw">return</span> (
+    <span class="tag">&lt;Card&gt;</span>
+      <span class="tag">&lt;Card.Body&gt;</span>
+        <span class="tag">&lt;strong&gt;</span>{product.name}<span class="tag">&lt;/strong&gt;</span>
+        <span class="tag">&lt;p&gt;</span>${product.price}<span class="tag">&lt;/p&gt;</span>
+      <span class="tag">&lt;/Card.Body&gt;</span>
+    <span class="tag">&lt;/Card&gt;</span>
+  )
+}
+
+<span class="cm">// 3. EXPORT — make it available for other files to import</span>
+<span class="kw">export default</span> Product</pre>
+    <div class="notes">
+      <div class="note"><div class="ndot"></div><p>The <strong>{ product }</strong> syntax is <strong>object destructuring</strong>. It extracts the <code>product</code> key from the props object passed by the parent.</p></div>
+      <div class="note"><div class="ndot"></div><p><strong>export default</strong> means this component is the main export of this file. When importing, you don't need curly braces: <code>import Product from './Product'</code></p></div>
+    </div>
+  </div>
+
+  <h3>How a Parent Passes Props to a Child</h3>
+<pre><span class="cm">// In HomeScreen.js (parent):</span>
+{products.<span class="fn">map</span>((product) => (
+  <span class="tag">&lt;Product</span> <span class="fn">key</span>={product._id} <span class="fn">product</span>={product} <span class="tag">/&gt;</span>
+  <span class="cm">//        ↑ unique key       ↑ passing data as a prop named "product"</span>
+))}
+
+<span class="cm">// In Product.js (child) — receives it:</span>
+<span class="kw">const</span> <span class="fn">Product</span> = ({ product }) => { ... }</pre>
+
+  <div class="box key"><strong>🧠 Exam Logic — The "key" prop:</strong> When rendering a list with <code>.map()</code>, React requires a unique <code>key</code> prop on each item. This is how React's Virtual DOM tracks individual items to efficiently update only what changed. We use <code>product._id</code> (the MongoDB ID) as the key.</div>
+
+  <h3>How the Rating Component Works (Logic)</h3>
+  <p>The Rating component receives a numeric <code>value</code> (like 4.5) and displays 5 star positions. For each position, it decides:</p>
+
+  <table>
+    <tr><th>Condition</th><th>Icon Shown</th><th>Example for Star 3 (position 3)</th></tr>
+    <tr><td>value ≥ position</td><td>★ Full star</td><td>value is 3, 3.5, 4, etc. → full</td></tr>
+    <tr><td>value ≥ position - 0.5</td><td>⯨ Half star</td><td>value is 2.5 → half</td></tr>
+    <tr><td>otherwise</td><td>☆ Empty star</td><td>value is 2 or less → empty</td></tr>
+  </table>
+
+  <p>This creates a cascading visual: a rating of 3.5 shows ★★★⯨☆.</p>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════════════════ -->
+<!--  SECTION 8 — HOOKS                                                      -->
+<!-- ════════════════════════════════════════════════════════════════════════ -->
+<section id="hooks">
+  <div class="stag">Chapter 8</div>
+  <h2>React Hooks — useState and useEffect</h2>
+  <div class="sline"></div>
+
+  <p><strong>Hooks</strong> are special functions that let React components access features like state management and side effects. They always start with <code>use</code> and must be called at the top level of a component (never inside loops, conditions, or nested functions).</p>
+
+  <h3>useState — Managing Data That Changes</h3>
+
+  <div class="synbox">
+<pre class="purple"><span class="kw">import</span> { useState } <span class="kw">from</span> <span class="str">'react'</span>
+
+<span class="kw">const</span> [products, setProducts] = <span class="fn">useState</span>([])
+<span class="cm">//     ↑ current value  ↑ function to update it  ↑ initial value (empty array)</span></pre>
+    <div class="notes">
+      <div class="note"><div class="ndot"></div><p><code>useState</code> returns an <strong>array with exactly 2 items</strong>: [currentValue, setterFunction]. We use <strong>array destructuring</strong> to name them.</p></div>
+      <div class="note"><div class="ndot"></div><p>When you call <code>setProducts(newData)</code>, React <strong>re-renders the component</strong> with the new value. You should <strong>never modify state directly</strong> (no <code>products = ...</code>).</p></div>
+    </div>
+  </div>
+
+  <h3>useEffect — Running Code After Render</h3>
+  <p><code>useEffect</code> runs <em>side effects</em> — code that should happen <em>after</em> the component renders. The most common use: <strong>fetching data from an API</strong>.</p>
+
+  <div class="synbox">
+<pre class="purple"><span class="kw">import</span> { useEffect } <span class="kw">from</span> <span class="str">'react'</span>
+
+<span class="fn">useEffect</span>(() => {
+  <span class="cm">// This code runs after the component renders</span>
+  <span class="kw">const</span> <span class="fn">fetchProducts</span> = <span class="kw">async</span> () => {
+    <span class="kw">const</span> { data } = <span class="kw">await</span> axios.<span class="fn">get</span>(<span class="str">'/api/products'</span>)
+    <span class="fn">setProducts</span>(data)
+  }
+  <span class="fn">fetchProducts</span>()
+}, [])    <span class="cm">// ← dependency array</span></pre>
+    <div class="notes">
+      <div class="note"><div class="ndot"></div><p><strong>Empty array <code>[]</code></strong> = run the effect <strong>only once</strong> when the component first appears on screen (mount). This is how we fetch data on page load.</p></div>
+      <div class="note"><div class="ndot"></div><p><strong>Array with value <code>[productId]</code></strong> = run once on mount, then again <strong>every time productId changes</strong>. Used in ProductScreen to reload when the URL changes.</p></div>
+      <div class="note"><div class="ndot"></div><p><strong>No array at all</strong> = run on <strong>every single render</strong>. This is almost always a bug — avoid it.</p></div>
+    </div>
+  </div>
+
+  <div class="box exam"><strong>📝 Exam Logic — The Three Dependency Array Cases:</strong><br>
+    <code>useEffect(() => {...})</code> → runs every render (usually wrong)<br>
+    <code>useEffect(() => {...}, [])</code> → runs ONCE on mount (data fetch on page load)<br>
+    <code>useEffect(() => {...}, [id])</code> → runs on mount + whenever <code>id</code> changes<br>
+    <br>
+    If asked "why does the useEffect have <code>[]</code>?", answer: to prevent infinite loops. Without it, the effect runs → updates state → triggers re-render → effect runs again → infinite loop.
+  </div>
+
+  <h3>useParams — Reading URL Parameters</h3>
+  <p>From React Router DOM. Extracts dynamic parts from the URL:</p>
+<pre><span class="cm">// If the URL is /product/abc123 and the route is /product/:id</span>
+<span class="kw">const</span> { id: productId } = <span class="fn">useParams</span>()
+<span class="cm">// productId = 'abc123'</span>
+<span class="cm">// The "id" comes from :id in the Route definition</span>
+<span class="cm">// ": productId" renames it to a more descriptive variable name</span></pre>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════════════════ -->
+<!--  SECTION 9 — REACT ROUTER                                              -->
+<!-- ════════════════════════════════════════════════════════════════════════ -->
+<section id="router">
+  <div class="stag">Chapter 9</div>
+  <h2>React Router DOM — Client-Side Navigation</h2>
+  <div class="sline"></div>
+
+  <h3>What Problem Does It Solve?</h3>
+  <p>Without React Router, clicking a link causes the browser to request a <strong>completely new HTML page</strong> from the server, reloading everything. With React Router, navigation happens <strong>entirely in JavaScript</strong> — the page never reloads, content just swaps instantly. This is what makes React a <strong>Single Page Application</strong>.</p>
+
+  <h3>How We Set It Up (in index.js)</h3>
+<pre class="blue"><span class="kw">import</span> { createBrowserRouter, createRoutesFromElements, Route, RouterProvider }
+  <span class="kw">from</span> <span class="str">'react-router-dom'</span>
+
+<span class="kw">const</span> router = <span class="fn">createBrowserRouter</span>(
+  <span class="fn">createRoutesFromElements</span>(
+    <span class="tag">&lt;Route</span> path=<span class="str">"/"</span> element={<span class="tag">&lt;App /&gt;</span>}<span class="tag">&gt;</span>                 <span class="cm">// Parent: App wraps all</span>
+      <span class="tag">&lt;Route</span> index={true} path=<span class="str">"/"</span> element={<span class="tag">&lt;HomeScreen /&gt;</span>} <span class="tag">/&gt;</span>  <span class="cm">// Child: shows at /</span>
+      <span class="tag">&lt;Route</span> path=<span class="str">"/product/:id"</span> element={<span class="tag">&lt;ProductScreen /&gt;</span>} <span class="tag">/&gt;</span> <span class="cm">// Child: shows at /product/123</span>
+    <span class="tag">&lt;/Route&gt;</span>
+  )
+)
+
+root.<span class="fn">render</span>(
+  <span class="tag">&lt;RouterProvider</span> router={router} <span class="tag">/&gt;</span>  <span class="cm">// Replaces direct &lt;App /&gt;</span>
+)</pre>
+
+  <div class="box key"><strong>🧠 Key Concepts:</strong><br>
+    • <strong>&lt;Route path="/product/:id"&gt;</strong> — the <code>:id</code> is a <strong>dynamic parameter</strong>. It matches any value: /product/1, /product/abc, etc.<br>
+    • <strong>index={true}</strong> — this route is the <strong>default</strong> child route (shown when the parent path matches exactly).<br>
+    • <strong>&lt;Outlet /&gt;</strong> in App.js — this is where the matched child route gets rendered.<br>
+    • <strong>&lt;Link to="/..."&gt;</strong> replaces <code>&lt;a href="..."&gt;</code> — it navigates <strong>without page reload</strong>.<br>
+    • <strong>&lt;LinkContainer to="/..."&gt;</strong> from react-router-bootstrap — wraps Bootstrap <code>&lt;Nav.Link&gt;</code> to make it work with React Router.
+  </div>
+
+  <h3>href vs Link — Why It Matters</h3>
+  <div class="grid">
+    <div class="card">
+      <div class="card-t" style="color:var(--red)">❌ &lt;a href="/product/1"&gt;</div>
+      <p>Triggers a full page reload. The browser sends a new HTTP request to the server and re-downloads everything. Slow. Loses component state.</p>
+    </div>
+    <div class="card">
+      <div class="card-t" style="color:var(--green)">✅ &lt;Link to="/product/1"&gt;</div>
+      <p>React Router intercepts the click, updates the URL, and swaps the component in the Outlet. No reload. Instant. State preserved.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════════════════ -->
+<!--  SECTION 10 — BACKEND                                                   -->
+<!-- ════════════════════════════════════════════════════════════════════════ -->
+<section id="backend">
+  <div class="stag">Chapter 10</div>
+  <h2>Backend — Express Server</h2>
+  <div class="sline"></div>
+
+  <h3>What is Express?</h3>
+  <p>Express is a <strong>minimal web framework for Node.js</strong>. It lets you create a server that listens for HTTP requests and sends back responses. Think of it as: "when someone visits URL X, do action Y and return data Z."</p>
+
+  <h3>Setting Up the Backend (Step by Step)</h3>
+  <ol class="steps">
+    <li>At the project root, run <code>npm init</code> — creates <code>package.json</code>. Set entry point to <code>server.js</code>.</li>
+    <li>Add <code>"type": "module"</code> to package.json — enables modern <code>import/export</code> syntax.</li>
+    <li>Create <code>backend/</code> folder and <code>backend/server.js</code> file.</li>
+    <li>Install Express: <code>npm i express</code></li>
+    <li>Write the server code (see below).</li>
+    <li>Add start script: <code>"start": "node backend/server.js"</code></li>
+    <li>Run: <code>npm start</code> → server starts on port 5000.</li>
+  </ol>
+
+  <h3>server.js — How It Works</h3>
+  <span class="fp">backend/server.js</span>
+<pre><span class="kw">import</span> express <span class="kw">from</span> <span class="str">'express'</span>
+<span class="kw">import</span> dotenv <span class="kw">from</span> <span class="str">'dotenv'</span>
+<span class="kw">import</span> connectDB <span class="kw">from</span> <span class="str">'./config/db.js'</span>
+<span class="kw">import</span> products <span class="kw">from</span> <span class="str">'./data/products.js'</span>
+
+<span class="kw">const</span> port = process.env.PORT || <span class="num">5000</span>   <span class="cm">// Read port from .env, fallback to 5000</span>
+
+<span class="fn">connectDB</span>()                             <span class="cm">// Connect to MongoDB</span>
+<span class="kw">const</span> app = <span class="fn">express</span>()                    <span class="cm">// Create Express app instance</span>
+
+<span class="cm">// Route 1: Root endpoint — just confirms the API is running</span>
+app.<span class="fn">get</span>(<span class="str">'/'</span>, (req, res) => {
+  res.<span class="fn">send</span>(<span class="str">'API is running ...'</span>)
+})
+
+<span class="cm">// Route 2: Get ALL products</span>
+app.<span class="fn">get</span>(<span class="str">'/api/products'</span>, (req, res) => {
+  res.<span class="fn">json</span>(products)                   <span class="cm">// Send products array as JSON</span>
+})
+
+<span class="cm">// Route 3: Get ONE product by ID (dynamic parameter)</span>
+app.<span class="fn">get</span>(<span class="str">'/api/products/:id'</span>, (req, res) => {
+  <span class="kw">const</span> product = products.<span class="fn">find</span>((p) => p._id === req.params.id)
+  res.<span class="fn">json</span>(product)                   <span class="cm">// Send matching product as JSON</span>
+})
+
+app.<span class="fn">listen</span>(port, () => console.<span class="fn">log</span>(<span class="str">`Server running on port ${port}`</span>))</pre>
+
+  <div class="box key"><strong>🧠 Exam Logic — Express Routing:</strong><br>
+    • <code>app.get(path, handler)</code> defines a route. When someone sends a GET request to that path, the handler function runs.<br>
+    • <code>req</code> = the <strong>request</strong> object (contains info about what the client asked for).<br>
+    • <code>res</code> = the <strong>response</strong> object (used to send data back).<br>
+    • <code>req.params.id</code> reads the <code>:id</code> from the URL. If someone visits <code>/api/products/5</code>, then <code>req.params.id</code> is <code>"5"</code>.<br>
+    • <code>res.json()</code> converts JavaScript data to JSON and sends it to the client.<br>
+    • <code>res.send()</code> sends plain text.
+  </div>
+
+  <h3>Environment Variables (.env)</h3>
+  <p>Sensitive configuration (passwords, API keys, port numbers) goes in a <code>.env</code> file at the project root. The <code>dotenv</code> package loads these values into <code>process.env</code>.</p>
+
+<pre>NODE_ENV=development
+PORT=5000
+MONGO_URI=mongodb+srv://user:password@cluster0.mongodb.net/licorne</pre>
+
+  <div class="box warn"><strong>Never commit .env to Git!</strong> It contains passwords. Add it to <code>.gitignore</code>. Share a template file (<code>example.env</code>) with placeholder values so others know what variables are needed.</div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════════════════ -->
+<!--  SECTION 11 — FULL STACK COMMUNICATION                                  -->
+<!-- ════════════════════════════════════════════════════════════════════════ -->
+<section id="fullstack">
+  <div class="stag">Chapter 11</div>
+  <h2>Full-Stack Communication — Connecting Front and Back</h2>
+  <div class="sline"></div>
+
+  <h3>The Problem: CORS</h3>
+  <p>The frontend runs on <code>localhost:3000</code> and the backend on <code>localhost:5000</code>. Browsers block requests between different origins (ports count!) for security. This is called <strong>CORS</strong> (Cross-Origin Resource Sharing).</p>
+
+  <h3>The Solution: Proxy</h3>
+  <p>In the <strong>frontend's</strong> <code>package.json</code>, we add:</p>
+<pre>"proxy": "http://localhost:5000"</pre>
+  <p>This tells the React development server: "whenever a request comes in that you can't handle (like <code>/api/products</code>), forward it to port 5000." Now we can write <code>axios.get('/api/products')</code> in the frontend without specifying the full URL.</p>
+
+  <div class="box exam"><strong>📝 Exam Tip:</strong> If asked "How do we make the frontend communicate with the backend?", the answer involves: (1) installing <strong>axios</strong> in the frontend, (2) adding a <strong>proxy</strong> in frontend's package.json pointing to the backend port, and (3) using <strong>useState + useEffect</strong> to fetch data and update the UI.</div>
+
+  <h3>Axios — The HTTP Client</h3>
+  <p>Axios is a library for making HTTP requests from JavaScript. We install it in the frontend: <code>npm i axios</code></p>
+
+<pre><span class="kw">const</span> { data } = <span class="kw">await</span> axios.<span class="fn">get</span>(<span class="str">'/api/products'</span>)
+<span class="cm">// axios.get() returns a response object</span>
+<span class="cm">// { data } destructures the 'data' key from that response</span>
+<span class="cm">// 'data' contains the actual JSON the server sent back</span></pre>
+
+  <h3>The Complete Data Flow — HomeScreen</h3>
+  <ol class="steps">
+    <li>User opens the website → React renders <code>HomeScreen</code></li>
+    <li><code>useEffect</code> fires (empty <code>[]</code> dependency = runs once on mount)</li>
+    <li>Inside it, <code>axios.get('/api/products')</code> sends a GET request</li>
+    <li>The proxy forwards the request to <code>localhost:5000/api/products</code></li>
+    <li>Express matches the route, calls <code>res.json(products)</code></li>
+    <li>Axios receives the JSON response</li>
+    <li><code>setProducts(data)</code> updates the state</li>
+    <li>React re-renders HomeScreen, calling <code>products.map()</code> to create Product cards</li>
+  </ol>
+
+  <h3>The Complete Data Flow — ProductScreen</h3>
+  <ol class="steps">
+    <li>User clicks a product card → React Router changes URL to <code>/product/abc123</code></li>
+    <li>Router renders <code>ProductScreen</code> inside the <code>&lt;Outlet /&gt;</code></li>
+    <li><code>useParams()</code> extracts <code>id = "abc123"</code> from the URL</li>
+    <li><code>useEffect</code> fires with <code>[productId]</code> dependency</li>
+    <li><code>axios.get(`/api/products/${productId}`)</code> sends request with dynamic ID</li>
+    <li>Express matches <code>/api/products/:id</code>, finds the product, returns it</li>
+    <li><code>setProduct(data)</code> updates state → screen shows product details</li>
+  </ol>
+
+  <div class="box def"><strong>Why [productId] in the dependency array?</strong> If the user navigates from product A to product B (the URL changes but the same component is used), the <code>useEffect</code> needs to re-run to fetch the new product's data. The dependency array tells React: "re-run this effect whenever productId changes."</div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════════════════ -->
+<!--  SECTION 12 — MONGODB                                                   -->
+<!-- ════════════════════════════════════════════════════════════════════════ -->
+<section id="mongodb">
+  <div class="stag">Chapter 12</div>
+  <h2>MongoDB — The Database</h2>
+  <div class="sline"></div>
+
+  <h3>What is MongoDB?</h3>
+  <p>MongoDB is a <strong>NoSQL database</strong>. Unlike traditional SQL databases that store data in tables with rows and columns, MongoDB stores data as <strong>documents</strong> — objects that look like JSON. Multiple documents are grouped into <strong>collections</strong>.</p>
+
+  <div class="grid">
+    <div class="card">
+      <div class="card-t">SQL (Traditional)</div>
+      <p>Tables → Rows → Columns<br>Fixed schema (every row must have same columns)<br>Uses SQL language for queries</p>
+    </div>
+    <div class="card">
+      <div class="card-t">NoSQL (MongoDB)</div>
+      <p>Collections → Documents → Fields<br>Flexible schema (documents can have different fields)<br>Uses JavaScript-like syntax for queries</p>
+    </div>
+  </div>
+
+  <h3>MongoDB Atlas — Cloud Database Setup</h3>
+  <ol class="steps">
+    <li>Create an account on <strong>mongodb.com</strong></li>
+    <li>Create a new <strong>Project</strong> (we called it "Licorne")</li>
+    <li>Click "Build a Database" → choose the <strong>free tier</strong> → select AWS provider</li>
+    <li>Create a <strong>database user</strong> (username + password) — this is different from your MongoDB account</li>
+    <li>Set <strong>IP access</strong> — either your specific IP or 0.0.0.0/0 (allow from anywhere)</li>
+    <li>Click "Connect" → "Connect your application" → copy the <strong>connection string</strong></li>
+    <li>Paste it in your <code>.env</code> file as <code>MONGO_URI</code>, replacing the password and database name</li>
+  </ol>
+
+  <h3>MongoDB Compass — Desktop GUI</h3>
+  <p>MongoDB Compass is a desktop application that lets you visually browse your database. You can connect to:</p>
+  <ul style="margin-left:20px;margin-bottom:14px;color:var(--text-2)">
+    <li><strong>Local database:</strong> <code>mongodb://localhost:27017</code></li>
+    <li><strong>Cloud database (Atlas):</strong> paste the connection string from Atlas</li>
+  </ul>
+
+  <h3>Key MongoDB Terms</h3>
+  <table>
+    <tr><th>Term</th><th>SQL Equivalent</th><th>Explanation</th></tr>
+    <tr><td>Database</td><td>Database</td><td>A container for collections. Ours is called "licorne".</td></tr>
+    <tr><td>Collection</td><td>Table</td><td>A group of related documents. E.g. "products", "users", "orders".</td></tr>
+    <tr><td>Document</td><td>Row</td><td>A single data record. Stored as a JSON-like object (BSON).</td></tr>
+    <tr><td>Field</td><td>Column</td><td>A key-value pair inside a document. E.g. <code>name: "Phone"</code>.</td></tr>
+    <tr><td>_id</td><td>Primary Key</td><td>Auto-generated unique identifier for each document (ObjectId).</td></tr>
+  </table>
+
+  <div class="box exam"><strong>📝 Exam Tip:</strong> Know the difference between SQL and NoSQL. MongoDB uses <strong>collections</strong> (not tables), <strong>documents</strong> (not rows), and <strong>fields</strong> (not columns). It stores data in BSON (Binary JSON) format.</div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════════════════ -->
+<!--  SECTION 13 — MONGOOSE MODELS & SEEDER                                  -->
+<!-- ════════════════════════════════════════════════════════════════════════ -->
+<section id="models">
+  <div class="stag">Chapter 13</div>
+  <h2>Mongoose — Schemas, Models, and Database Seeding</h2>
+  <div class="sline"></div>
+
+  <h3>What is Mongoose?</h3>
+  <p>Mongoose is an <strong>ODM</strong> (Object Data Modeling) library for MongoDB. It sits between your Node.js code and MongoDB, providing:</p>
+  <ul style="margin-left:20px;margin-bottom:14px;color:var(--text-2)">
+    <li><strong>Schemas</strong> — define the shape/structure of documents (what fields, what types, what constraints)</li>
+    <li><strong>Models</strong> — compiled from schemas, they provide methods to create, read, update, and delete documents</li>
+    <li><strong>Validation</strong> — ensures data matches the expected format before saving</li>
+  </ul>
+
+  <h3>Schema vs Model — The Difference</h3>
+  <div class="grid">
+    <div class="card">
+      <div class="card-t" style="color:var(--purple)">Schema (The Blueprint)</div>
+      <p>Defines the <strong>structure</strong>: which fields exist, their types (String, Number, Boolean), whether they're required, default values. Like a blueprint for a house.</p>
+    </div>
+    <div class="card">
+      <div class="card-t" style="color:var(--blue)">Model (The Constructor)</div>
+      <p>Created <strong>from</strong> a schema. Provides the actual methods to interact with the database: <code>find()</code>, <code>findById()</code>, <code>insertMany()</code>, <code>deleteMany()</code>. Like the construction company that builds from the blueprint.</p>
+    </div>
+  </div>
+
+  <h3>Connecting to MongoDB (db.js)</h3>
+  <span class="fp">backend/config/db.js</span>
+<pre><span class="kw">import</span> mongoose <span class="kw">from</span> <span class="str">'mongoose'</span>
+
+<span class="kw">const</span> <span class="fn">connectDB</span> = <span class="kw">async</span> () => {
+  <span class="kw">try</span> {
+    <span class="kw">const</span> conn = <span class="kw">await</span> mongoose.<span class="fn">connect</span>(process.env.MONGO_URI)
+    console.<span class="fn">log</span>(<span class="str">`MongoDB Connected: ${conn.connection.host}`</span>)
+  } <span class="kw">catch</span> (error) {
+    console.<span class="fn">error</span>(<span class="str">`Error: ${error.message}`</span>)
+    process.<span class="fn">exit</span>(<span class="num">1</span>)    <span class="cm">// Exit with failure code — app cannot run without DB</span>
+  }
+}
+
+<span class="kw">export default</span> connectDB</pre>
+
+  <div class="box key"><strong>🧠 Logic:</strong> <code>process.exit(1)</code> means "crash the application with an error." Code <code>1</code> = failure. Code <code>0</code> = success. If the database can't connect, there's no point in running the server.</div>
+
+  <h3>Product Schema Example</h3>
+  <span class="fp">backend/models/productModel.js</span>
+<pre><span class="kw">import</span> mongoose <span class="kw">from</span> <span class="str">'mongoose'</span>
+
+<span class="cm">// Sub-schema for reviews (embedded inside products)</span>
+<span class="kw">const</span> reviewSchema = mongoose.<span class="fn">Schema</span>({
+  user:    { type: mongoose.Schema.Types.ObjectId, required: <span class="kw">true</span>, ref: <span class="str">'User'</span> },
+  name:    { type: String, required: <span class="kw">true</span> },
+  rating:  { type: Number, required: <span class="kw">true</span> },
+  comment: { type: String, required: <span class="kw">true</span> },
+}, { timestamps: <span class="kw">true</span> })
+
+<span class="cm">// Main product schema</span>
+<span class="kw">const</span> productSchema = <span class="kw">new</span> mongoose.<span class="fn">Schema</span>({
+  user:         { type: mongoose.Schema.Types.ObjectId, required: <span class="kw">true</span>, ref: <span class="str">'User'</span> },
+  name:         { type: String,  required: <span class="kw">true</span> },
+  image:        { type: String,  required: <span class="kw">true</span> },
+  brand:        { type: String,  required: <span class="kw">true</span> },
+  category:     { type: String,  required: <span class="kw">true</span> },
+  description:  { type: String,  required: <span class="kw">true</span> },
+  reviews:      [reviewSchema],      <span class="cm">// Embedded sub-documents</span>
+  rating:       { type: Number, required: <span class="kw">true</span>, default: <span class="num">0</span> },
+  numReviews:   { type: Number, required: <span class="kw">true</span>, default: <span class="num">0</span> },
+  price:        { type: Number, required: <span class="kw">true</span>, default: <span class="num">0</span> },
+  countInStock: { type: Number, required: <span class="kw">true</span>, default: <span class="num">0</span> },
+}, { timestamps: <span class="kw">true</span> })
+
+<span class="kw">const</span> Product = mongoose.<span class="fn">model</span>(<span class="str">'Product'</span>, productSchema)
+<span class="kw">export default</span> Product</pre>
+
+  <div class="box key"><strong>🧠 Exam Logic — Schema Concepts:</strong><br>
+    • <code>type: String</code> / <code>Number</code> / <code>Boolean</code> — defines what data type the field accepts<br>
+    • <code>required: true</code> — this field is mandatory; saving without it causes an error<br>
+    • <code>default: 0</code> — if no value is provided, use 0<br>
+    • <code>ref: 'User'</code> — creates a <strong>reference</strong> (relationship) to another collection. This field stores a User's _id<br>
+    • <code>mongoose.Schema.Types.ObjectId</code> — the field stores a MongoDB ObjectId (unique identifier)<br>
+    • <code>[reviewSchema]</code> — an <strong>array of sub-documents</strong>. Each product contains its own list of review objects<br>
+    • <code>timestamps: true</code> — automatically adds <code>createdAt</code> and <code>updatedAt</code> fields to every document<br>
+    • <code>mongoose.model('Product', productSchema)</code> — compiles the schema into a usable Model
+  </div>
+
+  <h3>The Three Models in Our Project</h3>
+  <table>
+    <tr><th>Model</th><th>Collection Name</th><th>Key Fields</th></tr>
+    <tr><td>Product</td><td>products</td><td>name, image, brand, category, description, reviews, rating, numReviews, price, countInStock</td></tr>
+    <tr><td>User</td><td>users</td><td>name, email, password, isAdmin</td></tr>
+    <tr><td>Order</td><td>orders</td><td>user, orderItems, shippingAddress, paymentMethod, totalPrice, etc.</td></tr>
+  </table>
+
+  <h3>Seeder Script — Populating the Database</h3>
+  <p>The <code>seeder.js</code> file is a utility script that fills the database with test data (or clears it). It is not part of the app — you run it separately.</p>
+
+  <div class="synbox">
+<pre class="purple"><span class="cm">// seeder.js — simplified logic:</span>
+
+<span class="cm">// IMPORT mode (npm run data:import):</span>
+<span class="kw">await</span> Order.<span class="fn">deleteMany</span>()          <span class="cm">// 1. Clear all existing data</span>
+<span class="kw">await</span> Product.<span class="fn">deleteMany</span>()
+<span class="kw">await</span> User.<span class="fn">deleteMany</span>()
+<span class="kw">const</span> createdUsers = <span class="kw">await</span> User.<span class="fn">insertMany</span>(users)  <span class="cm">// 2. Insert mock users</span>
+<span class="kw">const</span> adminUser = createdUsers[<span class="num">0</span>]._id               <span class="cm">// 3. Get admin's ID</span>
+<span class="kw">const</span> sampleProducts = products.<span class="fn">map</span>(p => ({
+  ...p, user: adminUser                             <span class="cm">// 4. Add admin as owner</span>
+}))
+<span class="kw">await</span> Product.<span class="fn">insertMany</span>(sampleProducts)              <span class="cm">// 5. Insert products</span>
+
+<span class="cm">// DESTROY mode (npm run data:destroy):</span>
+<span class="kw">if</span> (process.argv[<span class="num">2</span>] === <span class="str">'-d'</span>) {
+  <span class="kw">await</span> Order.<span class="fn">deleteMany</span>()
+  <span class="kw">await</span> Product.<span class="fn">deleteMany</span>()
+  <span class="kw">await</span> User.<span class="fn">deleteMany</span>()
+}</pre>
+    <div class="notes">
+      <div class="note"><div class="ndot"></div><p><strong>process.argv[2]</strong> checks the terminal argument. <code>node seeder.js -d</code> → argv[2] is "-d" → destroy mode.</p></div>
+      <div class="note"><div class="ndot"></div><p>The <strong>spread operator <code>...p</code></strong> copies all existing product fields, then adds/overwrites the <code>user</code> field with the admin's ID.</p></div>
+    </div>
+  </div>
+
+  <h3>bcryptjs — Why Hash Passwords?</h3>
+  <p>In <code>users.js</code> (mock data), passwords are <strong>hashed</strong> using <code>bcryptjs</code>. Hashing converts a password into an unreadable string. Even if someone steals the database, they can't read the original passwords.</p>
+<pre><span class="kw">import</span> bcrypt <span class="kw">from</span> <span class="str">'bcryptjs'</span>
+
+<span class="kw">const</span> users = [
+  { name: <span class="str">'Admin'</span>, email: <span class="str">'admin@email.com'</span>,
+    password: bcrypt.<span class="fn">hashSync</span>(<span class="str">'123456'</span>, <span class="num">10</span>),  <span class="cm">// hashes "123456"</span>
+    isAdmin: <span class="kw">true</span> }
+]</pre>
+
+  <div class="box exam"><strong>📝 Exam Tip:</strong> If asked "Why do we use bcryptjs?", answer: to <strong>hash passwords</strong> before storing them in the database. Hashing is a one-way function — you can't reverse it to get the original password. This protects users even if the database is compromised.</div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════════════════ -->
+<!--  SECTION 14 — LOGIC CHEATSHEET                                          -->
+<!-- ════════════════════════════════════════════════════════════════════════ -->
+<section id="logic">
+  <div class="stag">Chapter 14</div>
+  <h2>Logic Cheatsheet — "Why" Questions for the Exam</h2>
+  <div class="sline"></div>
+
+  <p>Your professor said the exam is about <strong>logic</strong>. Here are the most likely "why" and "what" questions, with clear answers:</p>
+
+  <h4>🔹 Why do we use <code>"type": "module"</code> in package.json?</h4>
+  <p>To enable ES6 <code>import/export</code> syntax in Node.js. Without it, Node uses the older <code>require()</code> syntax. We need it because React uses import/export, and we want consistency across frontend and backend.</p>
+
+  <h4>🔹 Why does create-react-app put everything in one HTML file?</h4>
+  <p>Because React builds a <strong>Single Page Application</strong>. One HTML file with one <code>&lt;div id="root"&gt;</code>. React fills this div dynamically with JavaScript. Navigating between "pages" doesn't load new HTML — React just swaps components.</p>
+
+  <h4>🔹 What is the role of index.js in React?</h4>
+  <p>It's the <strong>entry point</strong>. It finds the <code>&lt;div id="root"&gt;</code> from index.html, creates a React root, sets up the Router, and renders the App component into it.</p>
+
+  <h4>🔹 What is the role of App.js?</h4>
+  <p>It's the <strong>layout shell</strong>. It contains elements that appear on every page (Header, Footer) and uses <code>&lt;Outlet /&gt;</code> as a placeholder where the routed screen components are dynamically injected.</p>
+
+  <h4>🔹 Why use useEffect with an empty dependency array?</h4>
+  <p>To run code <strong>only once</strong> when the component mounts. Perfect for initial API calls. Without the empty array, the effect runs on every render → state updates → re-render → effect runs again → <strong>infinite loop</strong>.</p>
+
+  <h4>🔹 Why do we need a proxy in frontend/package.json?</h4>
+  <p>To avoid <strong>CORS errors</strong>. The frontend (port 3000) and backend (port 5000) are different origins. The proxy tells the dev server to forward API requests to port 5000, making the browser think they're from the same origin.</p>
+
+  <h4>🔹 What is the difference between a Mongoose Schema and a Model?</h4>
+  <p><strong>Schema</strong> defines the structure (fields, types, validations). <strong>Model</strong> is compiled from the schema and provides database methods (find, create, update, delete). Schema is the blueprint; Model is the builder.</p>
+
+  <h4>🔹 Why do we use <code>req.params.id</code> in Express?</h4>
+  <p>To read <strong>dynamic URL parameters</strong>. When the route is <code>/api/products/:id</code>, the <code>:id</code> part captures whatever value is in the URL. <code>req.params.id</code> lets us access that value in the handler.</p>
+
+  <h4>🔹 Why do we need a "key" prop when using .map() in React?</h4>
+  <p>React uses keys to <strong>identify which items changed</strong> in the Virtual DOM. Without unique keys, React has to re-render the entire list. With keys, it only updates the items that actually changed — this is a performance optimization.</p>
+
+  <h4>🔹 What is the role of the seeder script?</h4>
+  <p>It <strong>populates the database with test data</strong> (import mode) or <strong>clears all data</strong> (destroy mode with -d flag). It deletes existing data first to prevent duplicates, then inserts users and products from mock data files.</p>
+
+  <h4>🔹 What does <code>npm run dev</code> do in our project?</h4>
+  <p>It runs the <code>dev</code> script from package.json, which uses <strong>concurrently</strong> to start both the backend server (with nodemon, for auto-restart) and the frontend React server <strong>at the same time</strong>.</p>
+
+  <h4>🔹 Why do we use nodemon instead of node?</h4>
+  <p>Nodemon <strong>watches for file changes</strong> and automatically restarts the server. With plain <code>node</code>, you'd have to manually stop and restart every time you change a file.</p>
+
+  <h4>🔹 What is the role of the .env file?</h4>
+  <p>Stores <strong>sensitive configuration</strong> (database passwords, port numbers, API keys) outside the code. It's listed in <code>.gitignore</code> so it never gets uploaded to GitHub.</p>
+
+  <h4>🔹 What does <code>timestamps: true</code> do in a Mongoose schema?</h4>
+  <p>Automatically adds two fields to every document: <code>createdAt</code> (when created) and <code>updatedAt</code> (when last modified). Mongoose manages these automatically.</p>
+
+  <h4>🔹 What is the role of <code>&lt;Outlet /&gt;</code> in App.js?</h4>
+  <p>It's a <strong>placeholder component</strong> from React Router. It marks where the matched child route component should be rendered. When the URL is <code>/</code>, HomeScreen renders inside the Outlet. When the URL is <code>/product/:id</code>, ProductScreen renders there instead.</p>
+
+  <h4>🔹 What is the difference between &lt;Link&gt; and &lt;a href&gt;?</h4>
+  <p><code>&lt;a href&gt;</code> causes a <strong>full page reload</strong>. <code>&lt;Link to&gt;</code> uses React Router to update the URL and swap components <strong>without reloading the page</strong>. Always use Link in React apps for internal navigation.</p>
+
+  <h4>🔹 What does <code>ref: 'User'</code> mean in a Mongoose schema?</h4>
+  <p>It creates a <strong>reference (relationship)</strong> between two collections. The field stores a User's ObjectId, linking a product to the user who created it. Similar to a foreign key in SQL.</p>
+
+  <h4>🔹 Why hash passwords with bcryptjs?</h4>
+  <p>To <strong>protect user data</strong>. Hashing converts passwords into unreadable strings. Even if someone accesses the database, they can't recover the original passwords. Hashing is <strong>one-way</strong> — you can check if a password matches a hash, but you can't reverse the hash.</p>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════════════════ -->
+<!--  SECTION 15 — PRACTICE QUIZ                                             -->
+<!-- ════════════════════════════════════════════════════════════════════════ -->
+<section id="quiz">
+  <div class="stag">Chapter 15</div>
+  <h2>Practice Quiz — Test Yourself</h2>
+  <div class="sline"></div>
+  <p>20 questions covering everything from installation to MongoDB. These test <strong>logic and understanding</strong>, not syntax memorization.</p>
+
+  <div class="quiz-wrap">
+    <div class="quiz-bar">
+      <span>Question <span id="qn">1</span>/20</span>
+      <span>Score: <span id="qs">0</span>/20</span>
+    </div>
+    <div class="quiz-track"><div class="quiz-fill" id="qf"></div></div>
+
+    <div id="qa">
+      <div class="quiz-q" id="qq"></div>
+      <div class="quiz-opts" id="qo"></div>
+      <div class="quiz-exp" id="qe">
+        <h4 id="qet"></h4>
+        <p id="qep"></p>
+      </div>
+      <button class="qnext" id="qnb" onclick="nextQ()">Next →</button>
+      <div style="clear:both;"></div>
+    </div>
+
+    <div class="quiz-done" id="qd">
+      <div class="score" id="qds"></div>
+      <div class="grade" id="qdg"></div>
+      <p id="qdm"></p>
+      <button onclick="resetQ()">Retry Quiz</button>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ═══════════════════════════════════════════════════════════════════════ -->
+<!--  JAVASCRIPT — QUIZ ENGINE                                              -->
+<!-- ═══════════════════════════════════════════════════════════════════════ -->
+<script>
+const QZ = [
+  {q:"What does MERN stand for?",
+   o:["MySQL, Express, React, Node","MongoDB, Express, React, Node.js","MongoDB, Ember, React, Nginx","Mongoose, Express, Redux, Node"],
+   c:1, e:"MERN = MongoDB (database) + Express (backend framework) + React (frontend library) + Node.js (JS runtime). All four use JavaScript."},
+
+  {q:"What is the purpose of the Virtual DOM in React?",
+   o:["To store the database schema","To replace CSS animations","To calculate minimal DOM changes and update only what changed, improving performance","To handle HTTP requests"],
+   c:2, e:"React keeps a lightweight copy (Virtual DOM) of the real browser DOM. When state changes, it builds a new virtual tree, diffs it with the old one, and patches only the changed nodes."},
+
+  {q:"What is the role of the .env file?",
+   o:["It contains CSS variables for styling","It stores secret configuration values like database passwords and port numbers","It defines the React component tree","It replaces package.json for scripts"],
+   c:1, e:".env stores sensitive data (MONGO_URI, PORT, etc.) that should never be committed to Git. The dotenv package loads these into process.env."},
+
+  {q:"What command creates a new React application?",
+   o:["npm i react","npx create-react-app frontend","npm run react","git init react-app"],
+   c:1, e:"npx downloads and runs create-react-app without permanently installing it. It creates a complete React project structure in a folder called 'frontend'."},
+
+  {q:"What is the difference between npm and npx?",
+   o:["npm is for frontend, npx is for backend","npm installs packages permanently, npx downloads and runs a package once without installing","They are exactly the same","npx only works on Mac"],
+   c:1, e:"npm install saves packages to node_modules permanently. npx runs a package without permanent installation — perfect for one-time setup tools."},
+
+  {q:"What does the proxy setting in frontend/package.json do?",
+   o:["It speeds up CSS loading","It forwards API requests from the React dev server (port 3000) to the backend (port 5000), avoiding CORS errors","It connects directly to MongoDB","It encrypts all HTTP traffic"],
+   c:1, e:"The proxy tells React's dev server: 'Forward any request you can't handle (like /api/products) to http://localhost:5000.' This bypasses browser CORS restrictions."},
+
+  {q:"In React, what is the difference between props and state?",
+   o:["Props are faster than state","Props are passed from parent to child (read-only), state is internal to a component (mutable)","State is only for the backend, props are for the frontend","There is no difference"],
+   c:1, e:"Props flow downward (parent → child) and cannot be modified by the child. State lives inside a component, can change over time, and triggers re-renders when updated."},
+
+  {q:"What does useEffect with an empty dependency array [] do?",
+   o:["Runs the effect on every single render","Runs the effect only once when the component first mounts","Never runs the effect","Runs the effect only when a button is clicked"],
+   c:1, e:"Empty [] tells React: 'Run this effect once on mount, then never again.' Perfect for initial data fetching. Without [], it runs every render, causing infinite loops."},
+
+  {q:"What is Express.js?",
+   o:["A CSS framework like Bootstrap","A database management system","A minimal web framework for Node.js that creates HTTP servers and defines routes","A React component library"],
+   c:2, e:"Express lets you create a server that listens for HTTP requests (GET, POST, etc.) on specific URLs (routes) and sends back responses."},
+
+  {q:"In Express, what does req.params.id represent?",
+   o:["The user's password","The dynamic URL parameter :id from the route definition","The database connection string","The server's port number"],
+   c:1, e:"When a route is defined as /api/products/:id and a request comes to /api/products/abc, req.params.id equals 'abc'. The : prefix marks it as dynamic."},
+
+  {q:"What is the difference between a Mongoose Schema and a Model?",
+   o:["Schema runs queries, Model defines structure","Schema defines the structure/shape of documents, Model compiles the schema and provides query methods","Schema is for SQL, Model is for NoSQL","There is no difference"],
+   c:1, e:"Schema = blueprint (defines fields, types, validations). Model = constructor built from that blueprint, providing methods like find(), insertMany(), deleteMany()."},
+
+  {q:"Why must React component names start with a capital letter?",
+   o:["It's just a naming convention with no technical reason","React uses the casing to distinguish custom components (<Product />) from HTML elements (<div>)","Capital letters make the code run faster","It's required by JavaScript"],
+   c:1, e:"React treats lowercase tags as HTML elements and uppercase as custom components. <product> would be treated as an unknown HTML tag, not your component."},
+
+  {q:"What does the key prop do when rendering lists with .map()?",
+   o:["It encrypts the data","It lets React uniquely identify each item so it can efficiently update only changed items during re-renders","It adds an HTML id attribute","It defines the CSS class"],
+   c:1, e:"Keys are used by React's reconciliation algorithm (Virtual DOM diffing). Without unique keys, React must re-render the entire list. With keys, it updates only what changed."},
+
+  {q:"What is the purpose of <Outlet /> in App.js?",
+   o:["It creates an electrical outlet animation","It acts as a placeholder where React Router renders the matched child route component","It connects to the database","It imports CSS files"],
+   c:1, e:"Outlet is where dynamic content goes. App.js has Header + Outlet + Footer. When URL is /, HomeScreen renders in the Outlet. When URL is /product/:id, ProductScreen renders there."},
+
+  {q:"Why do we use Link instead of 'a href' in React?",
+   o:["Link is faster to type","Link navigates without full page reload (SPA behavior), while a href causes the browser to reload the entire page","Link works with CSS, a href doesn't","There is no difference"],
+   c:1, e:"<a href> triggers a browser navigation — a new HTTP request, full page reload, all state lost. <Link> uses React Router to swap components instantly without reloading."},
+
+  {q:"What does npm run dev do in our project?",
+   o:["It installs all dependencies","It runs both the backend server (with nodemon) and the frontend React server simultaneously using concurrently","It deploys the app to production","It creates a new React project"],
+   c:1, e:"The 'dev' script uses concurrently to run two commands at once: 'npm run server' (nodemon for backend) and 'npm run client' (React dev server). Full-stack development with one command."},
+
+  {q:"What is the purpose of bcryptjs in our project?",
+   o:["To style components","To compress images","To hash user passwords before storing them in the database, protecting them even if the DB is compromised","To manage Git branches"],
+   c:2, e:"Hashing converts passwords into irreversible strings. Even if someone steals the database, they can't recover original passwords. bcrypt is a one-way hashing algorithm."},
+
+  {q:"What does 'timestamps: true' do in a Mongoose schema?",
+   o:["It adds a clock widget to the frontend","It automatically adds createdAt and updatedAt fields to every document","It logs all database queries with timestamps","It sets the server timezone"],
+   c:1, e:"Mongoose automatically manages these two fields — createdAt records when a document was first created, updatedAt records the last modification time."},
+
+  {q:"What is the correct order of the React loading chain?",
+   o:["App.js → index.js → index.html","index.html → App.js → index.js","index.html → index.js → App.js → Components","Components → App.js → index.js → index.html"],
+   c:2, e:"The browser loads index.html (which has <div id='root'>), then index.js (React entry point) mounts App.js into that div, and App.js renders its child components."},
+
+  {q:"In the seeder script, what does process.argv[2] check for?",
+   o:["The database password","The '-d' flag to determine whether to import data or destroy it","The Node.js version number","The number of products in the database"],
+   c:1, e:"process.argv is an array of command-line arguments. argv[0] is 'node', argv[1] is 'seeder.js', argv[2] is the first user argument. If it's '-d', the script destroys data; otherwise it imports."},
+];
+
+let ci=0, sc=0, ans=false;
+
+function loadQ(){
+  ans=false;
+  document.getElementById('qn').textContent=ci+1;
+  document.getElementById('qf').style.width=((ci+1)/QZ.length*100)+'%';
+  document.getElementById('qs').textContent=sc;
+  const q=QZ[ci];
+  document.getElementById('qq').innerHTML=q.q;
+  const c=document.getElementById('qo');
+  c.innerHTML='';
+  q.o.forEach((o,i)=>{
+    const b=document.createElement('button');
+    b.className='qbtn';
+    b.textContent=o;
+    b.onclick=()=>pick(i,b);
+    c.appendChild(b);
+  });
+  document.getElementById('qe').style.display='none';
+  document.getElementById('qnb').style.display='none';
+}
+
+function pick(i,btn){
+  if(ans)return;
+  ans=true;
+  const q=QZ[ci];
+  const bs=document.querySelectorAll('.qbtn');
+  if(i===q.c){
+    btn.classList.add('ok');
+    sc++;
+    document.getElementById('qet').textContent='✅ Correct!';
+    document.getElementById('qet').style.color='var(--green)';
+  }else{
+    btn.classList.add('no');
+    bs[q.c].classList.add('ok');
+    document.getElementById('qet').textContent='❌ Incorrect';
+    document.getElementById('qet').style.color='var(--red)';
+  }
+  document.getElementById('qs').textContent=sc;
+  document.getElementById('qep').textContent=q.e;
+  document.getElementById('qe').style.display='block';
+  document.getElementById('qnb').style.display='block';
+}
+
+function nextQ(){
+  if(ci<QZ.length-1){ci++;loadQ();}
+  else{
+    document.getElementById('qa').style.display='none';
+    const d=document.getElementById('qd');
+    d.style.display='block';
+    const pct=Math.round(sc/QZ.length*100);
+    document.getElementById('qds').textContent=pct+'%';
+    let g,m;
+    if(pct>=90){g='🏆 Outstanding!';m='You have a comprehensive understanding of the MERN stack. You are fully prepared for this exam.';}
+    else if(pct>=70){g='👏 Well Done!';m='You have a solid grasp of the key concepts. Review the topics you missed and you\'ll be ready.';}
+    else if(pct>=50){g='📖 Keep Studying';m='You understand the basics but need to review some important concepts. Re-read the logic cheatsheet section carefully.';}
+    else{g='📚 More Review Needed';m='Take your time re-reading each chapter, especially the logic section. Focus on understanding WHY things work, not memorizing code.';}
+    document.getElementById('qdg').textContent=g;
+    document.getElementById('qdm').textContent=m;
+  }
+}
+
+function resetQ(){
+  ci=0;sc=0;
+  document.getElementById('qd').style.display='none';
+  document.getElementById('qa').style.display='block';
+  loadQ();
+}
+
+loadQ();
+</script>
+
+</body>
+</html>
