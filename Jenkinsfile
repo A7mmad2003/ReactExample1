@@ -10,7 +10,7 @@ pipeline {
         stage('Checkout Git') {
             steps {
                 echo 'Pulling...'
-                git branch: 'master', url: 'https://github.com'
+                git branch: 'master', url: 'https://github.com/A7mmad2003/ReactExample1.git'
             }
         }
     }
